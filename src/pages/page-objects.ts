@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import { count } from 'console';
 
 export class BookingPageObjects {
 
@@ -20,9 +21,9 @@ export class BookingPageObjects {
   readonly destinationSelectButton : (
     nameOfDestination: string,
   ) => Locator;
-  readonly datePicketTabsContainer: Locator;
-  readonly dateStartTabSelectBox: Locator;
-  readonly dateEndTabSelectBox: Locator;
+  readonly datePickerTabsContainer: Locator;
+  datePickerSearchSelector: Locator;
+
   readonly occupancyConfigSelectBox: Locator;
   readonly groupAdultsInputSelector: Locator;
   readonly groupChildrenInputSelector: Locator;
@@ -54,9 +55,8 @@ export class BookingPageObjects {
     ) => {
       return page.getByRole('button', {name: nameOfDestination});
     };
-    this.datePicketTabsContainer = page.getByTestId('datepicker-tabs')
-    this.dateStartTabSelectBox = page.getByTestId('date-display-field-start')
-    this.dateEndTabSelectBox = page.getByTestId('date-display-field-end')
+    this.datePickerTabsContainer = page.getByTestId('searchbox-dates-container')
+    this.datePickerSearchSelector = page.getByText('searchbox-datepicker')
     this.searchButton = page.getByRole('button', { name: 'Search' })
     this.occupancyConfigSelectBox = page.getByTestId('occupancy-config')
     this.groupAdultsInputSelector = page.locator('#group_adults')
@@ -70,5 +70,26 @@ export class BookingPageObjects {
       await this.cookieBannerAcceptButton.click();
     } 
   }
+
+  async selectDates() {
+    /*
+    since container opens automatically after selecting the destionation, 
+    we will use the clickcount = 2 in order to close and open it again
+    */
+    await this.datePickerTabsContainer.click({clickCount: 2});
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() + 2);
+    const endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 5);
+    // Function to format dates
+    const formatDate = (date) => {
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    };
+    // Select the dates
+    await this.page.click(`[data-date="${formatDate(startDate)}"]`);
+    await this.page.click(`[data-date="${formatDate(endDate)}"]`);
+    // Clicks off the date picker container
+    await this.datePickerTabsContainer.click()
+}
 
 }
