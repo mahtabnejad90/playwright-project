@@ -1,5 +1,7 @@
 # playwright-project
 
+This repository is a example test automation project which tests the booking.com website using Playwright with Typescript language binding
+
 ## Setup & Installation Guide
 
 ### Preliminary Setup
