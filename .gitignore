@@ -1,0 +1,11 @@
+node_modules/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+*.env
+/env/env.env
+.vscode/
+/download/*
+.idea/
+src/.DS_Store
+.DS_Store
