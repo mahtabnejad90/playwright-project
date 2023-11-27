@@ -10,9 +10,11 @@ In order to be able to setup this project and execute the tests, you are require
 
 ***Install NVM***:
 
-NVM is used to quickly install one or more node dependencies via the command line
+NVM is used to quickly install one or more node dependencies via the command line:
 
 Installation terminal command - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash`
+
+Initialise NVM via this export command: 
 
 ```bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
