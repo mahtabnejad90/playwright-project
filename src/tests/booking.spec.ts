@@ -30,6 +30,7 @@ Tags.getTags(Tags.e2e, { disableCi: false, disableLocal: false }),
 
   test('Verify landing page header and sub-header', async ({ page }) => {
     await bookingPageObjects.dismissCookieBanner()
+    //toHaveText assertion is used to check for a text value in strict mode
     await expect(bookingPageObjects.landingPageHeroTitle).toHaveText('Find your next stay')
     //adding regex as assertion value here since the actual value can be dynamic
     await expect(bookingPageObjects.landingPageHeroSubtitle).toHaveText(/Search (low prices|deals) on hotels, homes, and much more.../)
