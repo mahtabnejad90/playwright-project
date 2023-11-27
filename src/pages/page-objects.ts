@@ -20,7 +20,17 @@ export class BookingPageObjects {
   readonly destinationSelectButton : (
     nameOfDestination: string,
   ) => Locator;
+  readonly datePicketTabsContainer: Locator;
+  readonly dateStartTabSelectBox: Locator;
+  readonly dateEndTabSelectBox: Locator;
+  readonly occupancyConfigSelectBox: Locator;
+  readonly groupAdultsInputSelector: Locator;
+  readonly groupChildrenInputSelector: Locator;
+  readonly groupRoomsInputSelector: Locator;
+  readonly decreaseNumberOfAdultsQuantityButton: Locator;
+  readonly searchButton: Locator;
 
+  //page.locator('div').filter({ hasText: /^2$/ }).locator('button').first()
 
   constructor(page: Page) {
     this.page = page;
@@ -44,7 +54,15 @@ export class BookingPageObjects {
     ) => {
       return page.getByRole('button', {name: nameOfDestination});
     };
-
+    this.datePicketTabsContainer = page.getByTestId('datepicker-tabs')
+    this.dateStartTabSelectBox = page.getByTestId('date-display-field-start')
+    this.dateEndTabSelectBox = page.getByTestId('date-display-field-end')
+    this.searchButton = page.getByRole('button', { name: 'Search' })
+    this.occupancyConfigSelectBox = page.getByTestId('occupancy-config')
+    this.groupAdultsInputSelector = page.locator('#group_adults')
+    this.decreaseNumberOfAdultsQuantityButton = page.locator('div').filter({ hasText: /^2$/ }).locator('button').first()
+    this.groupChildrenInputSelector = page.locator('#group_children')
+    this.groupRoomsInputSelector = page.locator('#no_rooms')
 
   }
   async dismissCookieBanner() {
@@ -52,5 +70,5 @@ export class BookingPageObjects {
       await this.cookieBannerAcceptButton.click();
     } 
   }
-  
+
 }
