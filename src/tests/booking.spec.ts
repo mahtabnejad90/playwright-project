@@ -65,7 +65,7 @@ Tags.getTags(Tags.e2e, { disableCi: false, disableLocal: false }),
   })
 
   test('test block skeleton 7', async ({ page }) => {
-    //add code
+    await bookingPageObjects.dismissCookieBanner()
   })
 
 })
