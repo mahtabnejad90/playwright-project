@@ -36,13 +36,12 @@ Tags.getTags(Tags.e2e, { disableCi: false, disableLocal: false }),
     await expect(bookingPageObjects.landingPageHeroSubtitle).toHaveText(/Search (low prices|deals) on hotels, homes, and much more.../)
   })
 
-  test('@mahtab Verify ability searching for a destination', async ({ page }) => {
+  test('Verify ability searching for a destination', async ({ page }) => {
     await bookingPageObjects.dismissCookieBanner()
     await bookingPageObjects.destinationInputText.click()
     await bookingPageObjects.destinationInputText.fill('London')
     await bookingPageObjects.destinationSelectButton('London Greater London, United').click()
     await bookingPageObjects.selectDates()
-
     //add action for user to select number of adults
     //add action for user to select number of rooms
     //add action for user to click the search button
