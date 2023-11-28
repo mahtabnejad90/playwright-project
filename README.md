@@ -24,4 +24,4 @@ Run `npm run lint -- --fix` to address fixable linting errors & commit your chan
 
 ## Tagging Mechanism
 
-To understand how our
+To understand how our tagging mechanism works, please read the [tagging](docs/tagging.md) documentation.
