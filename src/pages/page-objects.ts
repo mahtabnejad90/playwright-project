@@ -30,8 +30,7 @@ export class BookingPageObjects {
   readonly groupRoomsInputSelector: Locator;
   readonly decreaseNumberOfAdultsQuantityButton: Locator;
   readonly searchButton: Locator;
-
-  //page.locator('div').filter({ hasText: /^2$/ }).locator('button').first()
+  readonly hotelNameTextBox: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -63,7 +62,7 @@ export class BookingPageObjects {
     this.decreaseNumberOfAdultsQuantityButton = page.locator('div').filter({ hasText: /^2$/ }).locator('button').first()
     this.groupChildrenInputSelector = page.locator('#group_children')
     this.groupRoomsInputSelector = page.locator('#no_rooms')
-
+    this.hotelNameTextBox = page.getByRole('heading', { name: 'Rest Boutique Notting Hill', exact: true })
   }
   async dismissCookieBanner() {
     if ((await this.cookieBannerContainer.isVisible())) {
