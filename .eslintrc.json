@@ -1,0 +1,11 @@
+{
+    "rules": {
+        "indent": ["error", 2]
+    },
+    "parserOptions": {
+      "project": "./tsconfig.json"
+      },
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"]
+}
+

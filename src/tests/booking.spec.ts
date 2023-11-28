@@ -1,6 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Response as PlaywrightResponse } from '@playwright/test';
 import { BookingPageObjects } from '../pages/page-objects'
 import { Tags } from '../libs/tags';
+
 
 let bookingPageObjects: BookingPageObjects;
 
@@ -15,18 +16,18 @@ Tags.getTags(Tags.e2e, { disableCi: false, disableLocal: false }),
   })
 
   test('Verify cookie banner container visibility', 
-  async ({ page }) => {
-    if (!(await bookingPageObjects.cookieBannerContainer.isVisible())) {
-      expect(bookingPageObjects.cookieBannerContainer).not.toBeVisible()
-    } 
-    else{
-      expect(bookingPageObjects.cookieBannerContainer).toBeVisible()
-      expect(bookingPageObjects.cookieBannerAcceptButton).toBeVisible()
-      expect(bookingPageObjects.cookieBannerDeclineButton).toBeVisible()
-      await bookingPageObjects.cookieBannerAcceptButton.click()
-      await expect(bookingPageObjects.cookieBannerContainer).not.toBeVisible()
-    }
-  })
+    async ({ page }) => {
+      if (!(await bookingPageObjects.cookieBannerContainer.isVisible())) {
+        expect(bookingPageObjects.cookieBannerContainer).not.toBeVisible()
+      } 
+      else{
+        expect(bookingPageObjects.cookieBannerContainer).toBeVisible()
+        expect(bookingPageObjects.cookieBannerAcceptButton).toBeVisible()
+        expect(bookingPageObjects.cookieBannerDeclineButton).toBeVisible()
+        await bookingPageObjects.cookieBannerAcceptButton.click()
+        await expect(bookingPageObjects.cookieBannerContainer).not.toBeVisible()
+      }
+    })
 
   test('Verify landing page header and sub-header', async ({ page }) => {
     await bookingPageObjects.dismissCookieBanner()
@@ -63,7 +64,7 @@ Tags.getTags(Tags.e2e, { disableCi: false, disableLocal: false }),
 
   test('Verify ability reserve a room for a given accomodation', async ({ page }) => {
     await bookingPageObjects.dismissCookieBanner()
-   const postobelloHotelEndpoint = 'hotel/gb/portobello-notting-hill-london-double-room.en-gb.html?'
+    const postobelloHotelEndpoint = 'hotel/gb/portobello-notting-hill-london-double-room.en-gb.html?'
     await page.goto(process.env.PLAYWRIGHT_BOOKING_BASEURL as string + '/' + postobelloHotelEndpoint)
     await page.waitForLoadState()
     await expect(bookingPageObjects.hotelNameTextBox).toBeVisible()
@@ -71,47 +72,44 @@ Tags.getTags(Tags.e2e, { disableCi: false, disableLocal: false }),
   })
 
   test('Verify the GEO location of user via geolocation API', async ({ page }) => {
-  
- // Declare capturedResponse without any types
- let capturedResponse;
+  // Declare capturedResponse as PlaywrightResponse or null
+    let capturedResponse: PlaywrightResponse | null = null;
 
- // Set up an event listener for responses
- page.on('response', async (response) => {
-   if (response.url() === process.env.PLAYWRIGHT_GEO_LOCATION_API_URL as string) {
-     capturedResponse = response;
-   }
- });
+    // Set up an event listener for responses
+    page.on('response', async (response) => {
+      // Check if the response URL matches the expected API URL
+      if (response.url() === process.env.PLAYWRIGHT_GEO_LOCATION_API_URL as string) {
+        // Assign the response to capturedResponse
+        capturedResponse = response;
+      }
+    });
+    // Intercept the API call via the .route() method
+    await page.route(process.env.PLAYWRIGHT_GEO_LOCATION_API_URL as string, route => {
+      route.continue();
+    });
+    // Reload the page to trigger the API call
+    await page.reload();
+    // Add a 3 second wait
+    await page.waitForTimeout(3000);
 
- // Intercept the API call via the .route() method
- await page.route(process.env.PLAYWRIGHT_GEO_LOCATION_API_URL as string, route => {
-   route.continue();
- });
-
- // reload the page so that the API call is expected 
- await page.reload()
-
- // Wait for a moment to ensure the response has been captured
- await page.waitForTimeout(3000); // add a 3 seconds less (conservative estimate)
-
- // Ensure the response has been captured
- if (capturedResponse) {
-  
-   // Get the response status and body
-   const status = await capturedResponse.status();
-   const responseBody = await capturedResponse.json();
-
-   // Validate the response to be successful and return the expected values
-   expect(status).toBe(200);
-   expect(responseBody).toEqual({
-     country: "GB",
-     state: "ENG",
-     stateName: "England",
-     continent: "EU"
-   });
- } else {
-   throw new Error('Response from specified URL was not captured');
- }
-})
+    // Check if the response was captured
+    if (capturedResponse) {
+      // Using type assertion to inform TypeScript of the specific type
+      const status = await (capturedResponse as PlaywrightResponse).status();
+      const responseBody = await (capturedResponse as PlaywrightResponse).json();
+    
+      expect(status).toBe(200);
+      expect(responseBody).toEqual({
+        country: "GB",
+        state: "ENG",
+        stateName: "England",
+        continent: "EU"
+      });
+    } else {
+      // If no response is captured, throw an error to fail the test
+      throw new Error('Response from specified URL was not captured');
+    }
+  })
 
   test('test block skeleton 6', async ({ page }) => {
     await bookingPageObjects.dismissCookieBanner()

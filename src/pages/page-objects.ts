@@ -81,14 +81,14 @@ export class BookingPageObjects {
     const endDate = new Date(startDate);
     endDate.setDate(startDate.getDate() + 5);
     // Function to format dates
-    const formatDate = (date) => {
-        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const formatDate = (date: Date) => {
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     };
     // Select the dates
     await this.page.click(`[data-date="${formatDate(startDate)}"]`);
     await this.page.click(`[data-date="${formatDate(endDate)}"]`);
     // Clicks off the date picker container
     await this.datePickerTabsContainer.click()
-}
+  }
 
 }
