@@ -212,7 +212,7 @@ Tags.getTags(Tags.e2e + Tags.login, { disableCi: false, disableLocal: false }),
 
 //verifies the booking flow for a given hotel
 test.describe.parallel('Booking Flow'  + 
-Tags.getTags(Tags.e2e, { disableCi: false, disableLocal: false }), 
+Tags.getTags(Tags.e2e + Tags.booking, { disableCi: false, disableLocal: false }), 
 () => {
 
   test.beforeEach(async ({ page }) => {

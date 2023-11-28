@@ -29,6 +29,7 @@ export class Tags {
   
   static e2e = 'e2e';
   static ui = 'ui'
+  static booking = 'booking'
   static integration = 'integration'
   static api = 'api'
   static flights = 'flights'
