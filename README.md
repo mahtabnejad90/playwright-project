@@ -144,3 +144,11 @@ Note: replace `**BrowserName**` with the actual valid browser value such as; `Ch
 ## Debugging
 
 In order to debug your test/s, you can use the `--debug` flag at the end of your test execution command. This flag will pop up the playwright inspector and will allow you to debug your test/s step by step.
+
+## Linting
+
+In order to lint your code in order to invoke clean code within your implementation, you can use the following command on your terminal:
+
+`npm run lint`
+
+Run `npm run lint -- --fix` to address fixable linting errors & commit your changes.
