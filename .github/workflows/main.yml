@@ -1,4 +1,8 @@
 name: Playwright Tests
+env: 
+ PLAYWRIGHT_BOOKING_BASEURL: https://www.booking.com
+ PLAYWRIGHT_GEO_LOCATION_API_URL: https://geolocation.onetrust.com/cookieconsentpub/v1/geo/location
+ PlAYWRIGHT_GUEST_EMAIL: E2E_xua73ldg@example.com
 on:
   push:
     branches: [ main, master ]
@@ -17,6 +21,9 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Create .env file
+      run: |
+        cp env/env.example env/env.env
     - name: Run Playwright tests
       run: npx playwright test --grep @ci --project=Chromium
     - uses: actions/upload-artifact@v3
