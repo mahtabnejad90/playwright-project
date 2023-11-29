@@ -1,6 +1,6 @@
-### Project Setup
+## Project Setup
 
-#### 1 - Global dependencies prequisites
+### 1 - Global dependencies prequisites
 
 In order to be able to setup this project and execute the tests, you are required to download and install global dependencies
 
@@ -26,7 +26,7 @@ Download and install git package from: https://git-scm.com/downloads
 
 Instructions for Connecting to GitHub with SSH (GitHub account required): https://docs.github.com/en/authentication/connecting-to-github-with-ssh
 
-#### 2 - Repository Setup
+### 2 - Repository Setup
 
 Clone the repository using the following command:
 
@@ -36,7 +36,7 @@ Redirect your terminal path into the cloned playwright-project for the rest of t
 
 `cd your-local-path/playwright-project`
 
-#### 3 - Environment variables
+### 3 - Environment variables
 
 Copy the env.example file template from env/env.example to `env/env` (in the same directory), and then fill in the values in `env/env`:
 
@@ -44,7 +44,7 @@ Terminal copy command - `cp env/env.example env/env.env`
 
 Source your environment variable file with this command - `source env/env.evn`
 
-#### 4 - Project level dependencies
+### 4 - Project level dependencies
 
 Install project node version:
 
