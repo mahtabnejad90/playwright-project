@@ -38,11 +38,11 @@ Redirect your terminal path into the cloned playwright-project for the rest of t
 
 ### 3 - Environment variables
 
-Copy the env.example file template from env/env.example to `env/env` (in the same directory), and then fill in the values in `env/env`:
+Copy the env.example file template from env/env.example to `env/env.env` (in the same directory), and then fill in any sensitive values (if applicable) in `env/env.env`:
 
 Terminal copy command - `cp env/env.example env/env.env`
 
-Source your environment variable file with this command - `source env/env.evn`
+Source your environment variable file with this command - `source env/env.env`
 
 ### 4 - Project level dependencies
 
