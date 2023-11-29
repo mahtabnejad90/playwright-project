@@ -2,13 +2,13 @@
 
 This repository is a example test automation project which tests the booking.com website using Playwright with Typescript language binding.
 
-## Setup
+## Setup (REQUIRED)
 
-To Setup and configure this project, please follow the instructions in the [setup](docs/setup.md) documentation.
+To Setup and configure this project for the first time, please follow the instructions in the [setup](docs/setup.md) documentation.
 
 ## Test Execution
 
-To execute the tests within this project, please follow the instructions in the [running](docs/running.md) documentation.
+To execute the tests within this project one setup is complete, please follow the instructions in the [running](docs/running.md) documentation.
 
 ## Debugging
 
